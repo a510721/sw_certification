@@ -5,7 +5,7 @@
     cout.tie(0)
 
 
-void search(int T, int sum, int& match)
+   void search(int T, int sum, int& match)
 {
     for(int n = 1; n<=3; n++){
         int tot = sum+n; 

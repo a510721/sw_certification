@@ -8,6 +8,7 @@
 using namespace std;
 
 
+
 struct position
 {
     int x;

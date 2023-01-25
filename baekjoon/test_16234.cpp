@@ -3,19 +3,19 @@ using namespace std;
 
 #define MAX 50
 
-int size, l_v, r_v;
+int size_arr, l_v, r_v;
 int area[MAX][MAX];
-int visit[MAX][MAX];
+int visit_map[MAX][MAX];
 
 int dx[4] = {0,0,1,-1};
 int dy[4] = {1,-1,0,0};
 
 void input()
 {
-    cin>>size>>l_v>>r_v;
+    cin>>size_arr>>l_v>>r_v;
 
-    for(int r=0; r<size; r++){
-        for(int c=0; c<size; c++){
+    for(int r=0; r<size_arr; r++){
+        for(int c=0; c<size_arr; c++){
             cin>>area[r][c];
         }
     }
@@ -27,7 +27,7 @@ bool isUnion(int y, int x)
         int nx = x+ dx[i];
         int ny = y+ dy[i];
 
-        if(nx>=0 && ny>=0 && nx<size && ny<size){
+        if(nx>=0 && ny>=0 && nx<size_arr && ny<size_arr){
             if((l_v<= abs(area[y][x]-area[ny][nx])) && 
                (r_v>= abs(area[y][x]-area[ny][nx]))){
                 return true;
@@ -53,7 +53,7 @@ void search(int r, int c)
    st.push(make_pair(r,c));
    memory_st.push(make_pair(r,c));
 
-   visit[r][c] = 1;
+   visit_map[r][c] = 1;
    int sum = 0;
    int cnt = 0;
 
@@ -70,11 +70,11 @@ void search(int r, int c)
         int nx = x+dx[i];
         int ny = y+dy[i];
 
-        if( nx<0 || ny<0 || nx>=size || ny>=size) continue;
-        if( visit[ny][nx] != 0) continue;
+        if( nx<0 || ny<0 || nx>=size_arr || ny>=size_arr) continue;
+        if( visit_map[ny][nx] != 0) continue;
 
         if( connect(y, x, ny, nx) == true){
-            visit[ny][nx] = 1;
+            visit_map[ny][nx] = 1;
             st.push(make_pair(ny,nx));
             memory_st.push(make_pair(ny,nx));
         }
@@ -100,12 +100,12 @@ void solution()
     bool next = true;
     while(next)
     {
-        memset(visit, 0x00, sizeof(visit));
+        memset(visit_map, 0x00, sizeof(visit_map));
         next = false;
 
-        for(int r=0; r<size; r++){
-            for(int c=0; c<size; c++){
-            if( visit[r][c] == 0 && isUnion(r,c) == true){
+        for(int r=0; r<size_arr; r++){
+            for(int c=0; c<size_arr; c++){
+            if( visit_map[r][c] == 0 && isUnion(r,c) == true){
                     search(r,c);
                     next = true;
                 }
